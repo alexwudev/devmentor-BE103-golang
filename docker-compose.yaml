@@ -17,6 +17,11 @@ services:
     volumes:
       - ./data/mysql-80:/var/lib/mysql
       - ./config/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./config/mysql/my.cnf/my.cnf:/etc/mysql/my.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=root
-    command: [ "--bind-address=0.0.0.0", "--init-file=/docker-entrypoint-initdb.d/init.sql" ]
+    command:
+      [
+        "--bind-address=0.0.0.0",
+        "--init-file=/docker-entrypoint-initdb.d/init.sql",
+      ]
