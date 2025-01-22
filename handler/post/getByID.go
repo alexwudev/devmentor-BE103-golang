@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func (h *Post) getByID(c *gin.Context) {
+func (h *Post) getbyid(c *gin.Context) {
 	posts, err := h.postService.FindAll()
 	if err != nil {
 		logrus.Error(err)
