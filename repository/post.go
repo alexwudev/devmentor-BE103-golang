@@ -6,7 +6,7 @@ import (
 
 type PostRepositoryInterface interface {
 	FindAll() (*database.Posts, error)
-	FindOne() (*database.Post, error)
+	FindOne(id string) (*database.Post, error)
 	Create(postModel database.Post) error
 }
 
@@ -17,9 +17,12 @@ func NewPostRepository() *PostRepository {
 	return &PostRepository{}
 }
 
-func (post *PostRepository) FindOne() (postModel *database.Post, err error) {
+func (post *PostRepository) FindOne(id string) (postModel *database.Post, err error) {
 	postModel = &database.Post{}
-	err = postModel.Model().First(postModel).Error
+	err = postModel.Model().Where("id = ?", id).First(postModel).Error
+	if err != nil {
+		return nil, err
+	}
 	return
 }
 

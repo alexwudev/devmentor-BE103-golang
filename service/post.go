@@ -6,7 +6,7 @@ import (
 )
 
 type PostServiceInterface interface {
-	FindOne() (*database.Post, error)
+	FindOne(string) (*database.Post, error)
 	Create(postModel database.Post) error
 	FindAll() (*database.Posts, error)
 }
@@ -24,8 +24,8 @@ func NewPostService(postRepo repository.PostRepositoryInterface) *PostService {
 	return res
 }
 
-func (s *PostService) FindOne() (postModel *database.Post, err error) {
-	postModel, err = s.postRepository.FindOne()
+func (s *PostService) FindOne(id string) (postModel *database.Post, err error) {
+	postModel, err = s.postRepository.FindOne(id)
 	return
 }
 
