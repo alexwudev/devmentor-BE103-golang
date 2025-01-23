@@ -9,7 +9,7 @@ import (
 
 func (h *Post) getbyid(c *gin.Context) {
 	id := c.Param("id")
-	post, err := h.postService.FindOne(id)
+	post, err := h.postService.FindOne(map[string]interface{}{"id": id})
 	if err != nil {
 		logrus.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

@@ -5,9 +5,9 @@ import (
 )
 
 type PostRepositoryInterface interface {
-	FindAll() (*database.Posts, error)
-	FindOne(id string) (*database.Post, error)
 	Create(postModel database.Post) error
+	FindAll() (*database.Posts, error)
+	FindOne(map[string]interface{}) (*database.Post, error)
 }
 
 type PostRepository struct {
@@ -17,13 +17,13 @@ func NewPostRepository() *PostRepository {
 	return &PostRepository{}
 }
 
-func (post *PostRepository) FindOne(id string) (postModel *database.Post, err error) {
-	postModel = &database.Post{}
-	err = postModel.Model().Where("id = ?", id).First(postModel).Error
+func (post *PostRepository) FindOne(conditions map[string]interface{}) (*database.Post, error) {
+	var postModel database.Post
+	err := postModel.Model().Where(conditions).First(&postModel).Error
 	if err != nil {
 		return nil, err
 	}
-	return
+	return &postModel, nil
 }
 
 // create
