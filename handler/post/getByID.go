@@ -15,6 +15,5 @@ func (h *Post) getbyid(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
 	c.JSON(http.StatusOK, gin.H{"id": post.Id, "title": post.Title, "content": post.Content})
 }
