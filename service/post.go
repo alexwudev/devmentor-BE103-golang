@@ -9,6 +9,7 @@ type PostServiceInterface interface {
 	Create(postModel database.Post) error
 	FindAll() (*database.Posts, error)
 	FindOne(map[string]interface{}) (*database.Post, error)
+	UpdateOne(map[string]interface{}, map[string]interface{}) (*database.Posts, error)
 }
 
 type PostService struct {
@@ -34,5 +35,10 @@ func (s *PostService) Create(postModel database.Post) error {
 
 func (s *PostService) FindAll() (postModels *database.Posts, err error) {
 	postModels, err = s.postRepository.FindAll()
+	return
+}
+
+func (s *PostService) UpdateOne(conditions map[string]interface{}, newdatas map[string]interface{}) (postModels *database.Post, err error) {
+	postModels, err = s.postRepository.UpdateOne(conditions, newdatas)
 	return
 }
