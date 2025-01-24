@@ -8,7 +8,7 @@ import (
 type PostServiceInterface interface {
 	Create(postModel database.Post) error
 	FindAll() (*database.Posts, error)
-	FindOne(map[string]interface{}) (*database.Post, error)
+	FindOne(post *database.Post) (*database.Post, error)
 }
 
 type PostService struct {
@@ -24,8 +24,8 @@ func NewPostService(postRepo repository.PostRepositoryInterface) *PostService {
 	return res
 }
 
-func (s *PostService) FindOne(conditions map[string]interface{}) (postModels *database.Post, err error) {
-	return s.postRepository.FindOne(conditions)
+func (s *PostService) FindOne(post *database.Post) (postModels *database.Post, err error) {
+	return s.postRepository.FindOne(post)
 }
 
 func (s *PostService) Create(postModel database.Post) error {
