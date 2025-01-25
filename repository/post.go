@@ -8,6 +8,7 @@ type PostRepositoryInterface interface {
 	Create(postModel database.Post) error
 	FindAll() (*database.Posts, error)
 	FindOne(*database.Post) (*database.Post, error)
+	UpdateOne(string, *database.Post) (*database.Post, error)
 }
 
 type PostRepository struct {
@@ -37,4 +38,13 @@ func (post *PostRepository) FindAll() (postModels *database.Posts, err error) {
 	postModels = &database.Posts{}
 	err = postModels.Model().Find(postModels).Error
 	return
+}
+
+func (post *PostRepository) UpdateOne(id string, postd *database.Post) (*database.Post, error) {
+	var postModel database.Post
+	err := postModel.Model().Where(id).UpdateColumns(&postModel).Error
+	if err != nil {
+		return nil, err
+	}
+	return &postModel, nil
 }
