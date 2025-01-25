@@ -41,10 +41,9 @@ func (post *PostRepository) FindAll() (postModels *database.Posts, err error) {
 }
 
 func (post *PostRepository) UpdateOne(id string, postd *database.Post) (*database.Post, error) {
-	var postModel database.Post
-	err := postModel.Model().Where(id).UpdateColumns(&postModel).Error
+	err := postd.Model().Where("id = ?", id).Updates(postd).Error
 	if err != nil {
 		return nil, err
 	}
-	return &postModel, nil
+	return postd, nil
 }
