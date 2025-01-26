@@ -11,6 +11,11 @@ import (
 
 func (h *Post) getbyid(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		logrus.Error("Invalid ID:", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
 	post := database.Post{
 		Id: id,
 	}
