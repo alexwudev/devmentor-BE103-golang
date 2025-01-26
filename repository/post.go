@@ -9,7 +9,7 @@ type PostRepositoryInterface interface {
 	FindAll() (*database.Posts, error)
 	FindOne(*database.Post) (*database.Post, error)
 	UpdateOne(string, *database.Post) (*database.Post, error)
-	DeleteOne(string, *database.Post) (*database.Post, error)
+	DeleteOne(string) (*database.Post, error)
 }
 
 type PostRepository struct {
@@ -49,10 +49,11 @@ func (post *PostRepository) UpdateOne(id string, postd *database.Post) (*databas
 	return postd, nil
 }
 
-func (post *PostRepository) DeleteOne(id string, postd *database.Post) (*database.Post, error) {
-	err := postd.Model().Where("id = ?", id).Delete(postd).Error
+func (post *PostRepository) DeleteOne(id string) (postModel *database.Post, err error) {
+	postModel = &database.Post{}
+	err = postModel.Model().Where("id = ?", id).Delete(&postModel).Error
 	if err != nil {
 		return nil, err
 	}
-	return postd, nil
+	return
 }

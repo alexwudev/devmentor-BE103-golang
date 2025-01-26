@@ -10,7 +10,7 @@ type PostServiceInterface interface {
 	FindAll() (*database.Posts, error)
 	FindOne(post *database.Post) (*database.Post, error)
 	UpdateOne(id string, post *database.Post) (*database.Post, error)
-	DeleteOne(id string, post *database.Post) (*database.Post, error)
+	DeleteOne(id string) (*database.Post, error)
 }
 
 type PostService struct {
@@ -44,7 +44,7 @@ func (s *PostService) UpdateOne(id string, post *database.Post) (postModels *dat
 	return
 }
 
-func (s *PostService) DeleteOne(id string, post *database.Post) (postModels *database.Post, err error) {
-	postModels, err = s.postRepository.DeleteOne(id, post)
+func (s *PostService) DeleteOne(id string) (postModels *database.Post, err error) {
+	postModels, err = s.postRepository.DeleteOne(id)
 	return
 }
