@@ -27,7 +27,7 @@ func (h *Post) updatebyid(c *gin.Context) {
 	posts, err := h.postService.UpdateOne(strconv.Itoa(id), &post)
 	if err != nil {
 		logrus.Error("Update error: ", err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, posts)
